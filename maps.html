@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google Maps</title>
+
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #gMap {
+          height: 400px;
+          width: 600px;
+          margin: 0 auto;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            max-width: 1366px;
+            margin: 0 auto;
+            padding: 4% 0;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div id="gMap"></div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwomwj9-AngFthb-zhz691Z0aubQhsmok&callback=initMap" async defer></script>
+    <script>
+        var marinaCoords = [
+          { lng:55.133920,lat:25.092189},
+          { lng:55.133276,lat:25.089779},
+          { lng:55.134735,lat:25.088613},
+          { lng:55.136022,lat:25.088535},
+          { lng:55.136623,lat:25.088846},
+          { lng:55.136881,lat:25.087991},
+          { lng:55.135207,lat:25.083809},
+          { lng:55.130272,lat:25.077435},
+          { lng:55.127139,lat:25.074714},
+          { lng:55.125894,lat:25.074558},
+          { lng:55.126066,lat:25.075763},
+          { lng:55.125508,lat:25.075686},
+          { lng:55.124993,lat:25.073820},
+          { lng:55.125337,lat:25.072265},
+          { lng:55.126538,lat:25.071254},
+          { lng:55.130358,lat:25.070127},
+          { lng:55.132289,lat:25.070943},
+          { lng:55.134306,lat:25.072965},
+          { lng:55.137310,lat:25.076346},
+          { lng:55.139713,lat:25.079145},
+          { lng:55.143661,lat:25.081594},
+          { lng:55.146065,lat:25.083770},
+          { lng:55.145850,lat:25.085675},
+          { lng:55.139069,lat:25.090961},
+          { lng:55.140228,lat:25.092072},
+          { lng:55.139756,lat:25.092655},
+          { lng:55.134477,lat:25.092578},
+          { lng:55.133920,lat:25.092189}
+        ];
+
+        function initMap() {
+          
+          // Set Map
+          var map = new google.maps.Map(document.getElementById('gMap'), {
+            center: {
+                lat: 25.0821883,
+                lng: 55.1360889
+            },
+            zoom: 14,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: true
+          });
+
+          // Set Polygon
+          var marinaPolygon = new google.maps.Polygon({
+            paths: marinaCoords,
+            strokeColor: '#81b14d',
+            strokeOpacity: 1,
+            strokeWeight: 1,
+            fillColor: '#81b14d',
+            fillOpacity: .2
+          });
+          marinaPolygon.setMap(map);
+
+          // Listen for click on map
+          let markerCount = 0;
+          marinaPolygon.addListener('click', function(event){
+            if(markerCount === 0){
+              addMarker({coords:event.latLng});
+              markerCount++;
+            }
+          });
+
+
+          // Set Marker
+          // var marker = new google.maps.Marker({
+          //   position:{
+          //     lat: 25.0821883,
+          //     lng: 55.1360889
+          //     },
+          //   map: map,
+          //   // icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+          // });
+
+          // Add Marker Funtion
+          var userMarker;
+          function addMarker(props) {
+              userMarker = new google.maps.Marker({
+                position:props.coords,
+                map: map,
+                icon: props.iconImage
+              });
+              // check for custom Icon
+              if(props.iconImage){
+                userMarker.setIcon(props.iconImage); // set Icon Image
+              }
+
+
+
+          }
+          
+              // Drag Marker Event
+              marinaPolygon.addListener(userMarker, 'dragstart', function(dragged){
+                console.log(this.position);
+              });
+          // init the marker
+          // addMarker({
+          //   coords:{lat: 25.0821883,lng: 55.1360889}  
+          // });      
+
+        }
+    </script>
+
+</body>
+</html>
