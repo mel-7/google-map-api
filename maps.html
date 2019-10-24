@@ -31,6 +31,8 @@
 <body>
     <div class="container">
         <div id="gMap"></div>
+        <div id="gStart"></div>
+        <div id="gEnd"></div>
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCwomwj9-AngFthb-zhz691Z0aubQhsmok&callback=initMap" async defer></script>
@@ -117,29 +119,44 @@
           // Add Marker Funtion
           var userMarker;
           function addMarker(props) {
-              userMarker = new google.maps.Marker({
-                position:props.coords,
-                map: map,
-                icon: props.iconImage
-              });
-              // check for custom Icon
-              if(props.iconImage){
-                userMarker.setIcon(props.iconImage); // set Icon Image
-              }
-
-
-
+            userMarker = new google.maps.Marker({
+              position:props.coords,
+              map: map,
+              icon: props.iconImage,
+              draggable: true
+            });
+            // check for custom Icon
+            if(props.iconImage){
+              userMarker.setIcon(props.iconImage); // set Icon Image
+            }
           }
           
-              // Drag Marker Event
-              marinaPolygon.addListener(userMarker, 'dragstart', function(dragged){
-                console.log(this.position);
-              });
-          // init the marker
-          // addMarker({
-          //   coords:{lat: 25.0821883,lng: 55.1360889}  
-          // });      
+          // Drag Marker Event
+          // marinaPolygon.addListener(userMarker, 'dragstart', function(dragged){
+          //   console.log(this.position);
+          // });
 
+          // var dragMarker = new google.maps.Marker({
+          //   // position:props.coords,
+          //   position: {lat: 25.0821883, lng: 55.1360889},
+          //   map: map,
+          //   draggable: true
+          //   // icon: props.iconImage
+          // });
+          var positionStart, positionStartNew;
+          var dstart = new google.maps.event.addListener(userMarker, 'dragstart', function() {
+            positionStart = this.position;
+            document.getElementById('gStart').innerHTML = "start position: " + positionStart.toUrlValue(6);
+          });
+          var dend = new google.maps.event.addListener(userMarker, 'dragend', function() {
+            if (confirm("Are You Sure You Want To Move this marker?")) {
+              positionStartNew = this.position;
+              document.getElementById('gEnd').innerHTML = "end position: " + positionStartNew.toUrlValue(6);
+            } else {
+              userMarker.setPosition(positionStart);
+            }
+          });  
+          google.maps.event.addDomListener(window, "load", initMap);
         }
     </script>
 
