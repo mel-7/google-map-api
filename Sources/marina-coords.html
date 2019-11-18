@@ -1,0 +1,77 @@
+http://www.birdtheme.org/useful/v3tool.html
+
+KML
+
+{ lng:55.133920,lat:25.092189},
+{ lng:55.133276,lat:25.089779},
+{ lng:55.134735,lat:25.088613},
+{ lng:55.136022,lat:25.088535},
+{ lng:55.136623,lat:25.088846},
+{ lng:55.136881,lat:25.087991},
+{ lng:55.135207,lat:25.083809},
+{ lng:55.130272,lat:25.077435},
+{ lng:55.127139,lat:25.074714},
+{ lng:55.125894,lat:25.074558},
+{ lng:55.126066,lat:25.075763},
+{ lng:55.125508,lat:25.075686},
+{ lng:55.124993,lat:25.073820},
+{ lng:55.125337,lat:25.072265},
+{ lng:55.126538,lat:25.071254},
+{ lng:55.130358,lat:25.070127},
+{ lng:55.132289,lat:25.070943},
+{ lng:55.134306,lat:25.072965},
+{ lng:55.137310,lat:25.076346},
+{ lng:55.139713,lat:25.079145},
+{ lng:55.143661,lat:25.081594},
+{ lng:55.146065,lat:25.083770},
+{ lng:55.145850,lat:25.085675},
+{ lng:55.139069,lat:25.090961},
+{ lng:55.140228,lat:25.092072},
+{ lng:55.139756,lat:25.092655},
+{ lng:55.134477,lat:25.092578},
+{ lng:55.133920,lat:25.092189}
+
+
+
+
+JS
+
+var myCoordinates = [
+new google.maps.LatLng(25.092189,55.133920),
+new google.maps.LatLng(25.089779,55.133276),
+new google.maps.LatLng(25.088613,55.134735),
+new google.maps.LatLng(25.088535,55.136022),
+new google.maps.LatLng(25.088846,55.136623),
+new google.maps.LatLng(25.087991,55.136881),
+new google.maps.LatLng(25.083809,55.135207),
+new google.maps.LatLng(25.077435,55.130272),
+new google.maps.LatLng(25.074714,55.127139),
+new google.maps.LatLng(25.074558,55.125894),
+new google.maps.LatLng(25.075763,55.126066),
+new google.maps.LatLng(25.075686,55.125508),
+new google.maps.LatLng(25.073820,55.124993),
+new google.maps.LatLng(25.072265,55.125337),
+new google.maps.LatLng(25.071254,55.126538),
+new google.maps.LatLng(25.070127,55.130358),
+new google.maps.LatLng(25.070943,55.132289),
+new google.maps.LatLng(25.072965,55.134306),
+new google.maps.LatLng(25.076346,55.137310),
+new google.maps.LatLng(25.079145,55.139713),
+new google.maps.LatLng(25.081594,55.143661),
+new google.maps.LatLng(25.083770,55.146065),
+new google.maps.LatLng(25.085675,55.145850),
+new google.maps.LatLng(25.090961,55.139069),
+new google.maps.LatLng(25.092072,55.140228),
+new google.maps.LatLng(25.092655,55.139756),
+new google.maps.LatLng(25.092578,55.134477)
+];
+var polyOptions = {
+path: myCoordinates,
+strokeColor: "#FF0000",
+strokeOpacity: 0.8,
+strokeWeight: 2,
+fillColor: "#0000FF",
+fillOpacity: 0.6
+}
+var it = new google.maps.Polygon(polyOptions);
+it.setMap(map);
